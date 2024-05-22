@@ -102,7 +102,7 @@ function playRound(playerChoice, computerChoice)
     }
 
     // print round results
-    console.log("\nRound 1 Complete!");
+    console.log(`\nRound ${roundNum} Complete!`);
     console.log(`Player Choice: ${playerChoice}`);
     console.log(`Computer Choice: ${computerChoice}`);
     console.log("Current Scores:");
@@ -110,14 +110,38 @@ function playRound(playerChoice, computerChoice)
     console.log(`Computer: ${computerScore}`);
 }
 
+// This function plays the game by initializing the score variables and calling playRound() 5 times
+function playGame() 
+{    
+    // use for loop to play 5 rounds of rock paper scissors
+    for (roundNum = 1; roundNum < 6; ++roundNum) 
+    {
+        // get computer and player choices
+        let computerChoice = getComputerChoice();
+        let playerChoice = getPlayerChoice();
+        playRound(playerChoice, computerChoice);
+    }
+
+    // check who won the game, print message accordingly
+    if (playerScore > computerScore) 
+    {
+        console.log("\nCongratulations, you won!");
+    }
+    else if (computerScore > playerScore)
+    {
+        console.log("\nBetter luck next time!");
+    }
+    else
+    {
+        console.log("\nIt was a tie!");
+    }
+}
+
 console.log("Welcome to the game of Rock Paper Scissors!");
 
-// initialize score variables
+// initialize score variables and round number variable
 let playerScore = 0;
 let computerScore = 0;
+let roundNum;
 
-// get computer and player choices
-let computerChoice = getComputerChoice();
-let playerChoice = getPlayerChoice();
-
-playRound(playerChoice, computerChoice);
+playGame();
