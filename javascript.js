@@ -87,10 +87,37 @@ function incrementScore(playerChoice, computerChoice)
     }
 }
 
+function printEndMessage()
+{
+    const resultsDiv = document.querySelector("#results");
+    const endMessage = document.createElement("p");
+    endMessage.style.whiteSpace = "pre";
+
+    // check who won the game, print message accordingly
+    if (playerScore > computerScore) 
+    {
+        endMessage.textContent = "\nCongratulations, you won!";
+        console.log("\nCongratulations, you won!");
+    }
+    else if (computerScore > playerScore)
+    {
+        endMessage.textContent = "\nThe computer won, better luck next time!";
+        console.log("\nThe computer won, better luck next time!");
+    }
+    else
+    {
+        console.log("\nIt was a tie!");
+    }
+
+    resultsDiv.appendChild(endMessage);
+}
+
 // This function plays a round of rock paper scissors by taking in the two choices as parameters
 // and incrementing the scores accordingly, while printing out the results
-function playRound(playerChoice, computerChoice) 
+function playRound(playerChoice) 
 {
+    let computerChoice = getComputerChoice();
+
     // increment scores by calling sameChoice() and incrementScore()
     if (!sameChoice(playerChoice, computerChoice)) {
         if (incrementScore(playerChoice, computerChoice)) {
@@ -101,6 +128,21 @@ function playRound(playerChoice, computerChoice)
         }
     }
 
+    // create reference to div where round results will be added
+    const resultsDiv = document.querySelector("#results");
+
+    // create new p element for each round's results
+    const results = document.createElement("p");
+    results.style.whiteSpace = "pre";
+    results.textContent = 
+        `\nRound ${roundNum} Complete!
+        \nPlayer Choice: ${playerChoice}
+        \nComputer Choice: ${computerChoice}
+        \nPlayer Score: ${playerScore}
+        \nComputer Score: ${computerScore}`;
+
+    resultsDiv.appendChild(results);
+
     // print round results
     console.log(`\nRound ${roundNum} Complete!`);
     console.log(`Player Choice: ${playerChoice}`);
@@ -108,33 +150,31 @@ function playRound(playerChoice, computerChoice)
     console.log("Current Scores:");
     console.log(`Player: ${playerScore}`);
     console.log(`Computer: ${computerScore}`);
+
+    ++roundNum;
+
+    // keep playing until a player reaches a score of 5
+    if (playerScore == 5 || computerScore == 5)
+    {
+        printEndMessage();
+        document.querySelector("#rock").disabled = true;
+        document.querySelector("#paper").disabled = true;
+        document.querySelector("#scissors").disabled = true;
+    }
 }
 
 // This function plays the game by initializing the score variables and calling playRound() 5 times
 function playGame() 
 {    
-    // use for loop to play 5 rounds of rock paper scissors
-    for (roundNum = 1; roundNum < 6; ++roundNum) 
-    {
-        // get computer and player choices
-        let computerChoice = getComputerChoice();
-        let playerChoice = getPlayerChoice();
-        playRound(playerChoice, computerChoice);
-    }
+    // initialize variables for buttons
+    let rockButton = document.querySelector("#rock");
+    let paperButton = document.querySelector("#paper");
+    let scissorsButton = document.querySelector("#scissors");
 
-    // check who won the game, print message accordingly
-    if (playerScore > computerScore) 
-    {
-        console.log("\nCongratulations, you won!");
-    }
-    else if (computerScore > playerScore)
-    {
-        console.log("\nBetter luck next time!");
-    }
-    else
-    {
-        console.log("\nIt was a tie!");
-    }
+    // add event listeners for each button, allowing player to choose
+    rockButton.addEventListener("click", () => playRound("Rock"));
+    paperButton.addEventListener("click", () => playRound("Paper"));
+    scissorsButton.addEventListener("click", () => playRound("Scissors"));
 }
 
 console.log("Welcome to the game of Rock Paper Scissors!");
@@ -142,6 +182,6 @@ console.log("Welcome to the game of Rock Paper Scissors!");
 // initialize score variables and round number variable
 let playerScore = 0;
 let computerScore = 0;
-let roundNum;
+let roundNum = 1;
 
 playGame();
