@@ -1,0 +1,65 @@
+* {
+    font-family: "Trebuchet MS", "Verdana", "Arial";
+    background-color: rgb(241, 182, 17);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    gap: 250px;
+}
+
+#rock, 
+#paper,
+#scissors {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    display: flex;
+    width: 250px;
+    height: 250px;
+    border-width: 4px;
+    border: solid red;
+    border-radius: 16px;
+    font-size: 40px;
+    color: red;
+    justify-content: center;
+    align-items: center;
+}
+
+#rock img {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+}
+
+#paper img {
+    display: inline-block;
+    width: 75px;
+    height: auto;
+    margin-bottom: 25px;
+}
+
+#scissors img {
+    display: inline-block;
+    width: 125px;
+    height: auto;
+}
+
+#results {
+    margin-top: 100px;
+    font-size: 20px;
+}
+
+#round {
+    display: none;
+    border: solid red;
+    border-width: 4px;
+    border-radius: 16px;
+    padding: 32px;
+}

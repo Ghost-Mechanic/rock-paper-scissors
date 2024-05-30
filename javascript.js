@@ -1,6 +1,6 @@
 /****************************************************
 A simple game of rock paper scissors played entirely
-on the console between a player and the computer.
+on a website between a player and the computer.
 ****************************************************/
 
 // This function returns a random choice between rock, paper, and scissors to be 
@@ -23,15 +23,6 @@ function getComputerChoice()
     {
         return "Scissors";
     }
-}
-
-// This function lets the player choose their object with a prompt and returns it.
-function getPlayerChoice() {
-    let playerInput = prompt("Please enter your choice between rock, paper, and scissors (spell out the word): ");
-
-    let playerChoice = playerInput[0].toUpperCase() + playerInput.substring(1).toLowerCase();
-
-    return playerChoice;
 }
 
 // This function returns true if both the player and computer have the same choice, which means their 
@@ -132,16 +123,15 @@ function playRound(playerChoice)
     const resultsDiv = document.querySelector("#results");
 
     // create new p element for each round's results
-    const results = document.createElement("p");
+    const results = document.querySelector("#round");
     results.style.whiteSpace = "pre";
+    results.style.display = "block";
     results.textContent = 
-        `\nRound ${roundNum} Complete!
+        `Round ${roundNum} Complete!
         \nPlayer Choice: ${playerChoice}
         \nComputer Choice: ${computerChoice}
         \nPlayer Score: ${playerScore}
         \nComputer Score: ${computerScore}`;
-
-    resultsDiv.appendChild(results);
 
     // print round results
     console.log(`\nRound ${roundNum} Complete!`);
@@ -153,7 +143,7 @@ function playRound(playerChoice)
 
     ++roundNum;
 
-    // keep playing until a player reaches a score of 5
+    // keep playing until a player reaches a score of 5, then print message and disable buttons
     if (playerScore == 5 || computerScore == 5)
     {
         printEndMessage();
@@ -176,6 +166,10 @@ function playGame()
     paperButton.addEventListener("click", () => playRound("Paper"));
     scissorsButton.addEventListener("click", () => playRound("Scissors"));
 }
+
+// hide results div until it is ready to be shown
+const results = document.querySelector("#round");
+results.style.display = "none";
 
 console.log("Welcome to the game of Rock Paper Scissors!");
 
