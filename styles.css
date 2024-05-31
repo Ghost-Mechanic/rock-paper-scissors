@@ -63,3 +63,7 @@ body {
     border-radius: 16px;
     padding: 32px;
 }
+
+#playAgain {
+    display: none;
+}

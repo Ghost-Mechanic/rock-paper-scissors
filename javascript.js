@@ -78,11 +78,28 @@ function incrementScore(playerChoice, computerChoice)
     }
 }
 
+// This function runs when the game ends, printing a message
 function printEndMessage()
 {
+    // create elements for ending message and play again button
     const resultsDiv = document.querySelector("#results");
-    const endMessage = document.createElement("p");
+    const endMessage = document.querySelector("#ending");
     endMessage.style.whiteSpace = "pre";
+    endMessage.style.textAlign = "center";
+    endMessage.style.fontSize = "20px";
+    endMessage.style.display = "block";
+
+    // create button to allow player to play again
+    const playAgainButton = document.querySelector("#playAgain");
+    playAgainButton.textContent = "Play Again";
+    playAgainButton.style.border = "solid";
+    playAgainButton.style.borderColor = "red";
+    playAgainButton.style.padding = "8px";
+    playAgainButton.style.marginTop = "30px";
+    playAgainButton.style.borderRadius = "8px";
+    playAgainButton.style.textAlign = "center";
+    playAgainButton.style.width = "auto";
+    playAgainButton.style.display = "block";
 
     // check who won the game, print message accordingly
     if (playerScore > computerScore) 
@@ -100,7 +117,13 @@ function printEndMessage()
         console.log("\nIt was a tie!");
     }
 
-    resultsDiv.appendChild(endMessage);
+    // add a button to allow the user to play again
+    playAgainButton.addEventListener("click", () => {
+        // remove message and button and run playAgain()
+        endMessage.style.display = "none";
+        playAgainButton.style.display = "none";
+        playAgain();
+    })
 }
 
 // This function plays a round of rock paper scissors by taking in the two choices as parameters
@@ -167,9 +190,21 @@ function playGame()
     scissorsButton.addEventListener("click", () => playRound("Scissors"));
 }
 
-// hide results div until it is ready to be shown
-const results = document.querySelector("#round");
-results.style.display = "none";
+// This function allows the player to play the game again if they choose
+function playAgain() {
+    // hide results div until it is ready to be shown
+    const results = document.querySelector("#round");
+    results.style.display = "none";
+
+    playerScore = 0;
+    computerScore = 0;
+    roundNum = 1;
+
+    // reenable event listeners
+    document.querySelector("#rock").disabled = false;
+    document.querySelector("#paper").disabled = false;
+    document.querySelector("#scissors").disabled = false;
+}
 
 console.log("Welcome to the game of Rock Paper Scissors!");
 
